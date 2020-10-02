@@ -41,6 +41,9 @@
             "./src/Repository/.gitignore"
         ]
     },
+    "doctrine/doctrine-cache-bundle": {
+        "version": "1.4.0"
+    },
     "doctrine/doctrine-migrations-bundle": {
         "version": "2.2",
         "recipe": {
@@ -78,11 +81,14 @@
     "doctrine/reflection": {
         "version": "1.2.1"
     },
-    "doctrine/sql-formatter": {
-        "version": "1.1.1"
-    },
     "egulias/email-validator": {
         "version": "2.1.22"
+    },
+    "friendsofsymfony/user-bundle": {
+        "version": "v2.1.2"
+    },
+    "jdorn/sql-formatter": {
+        "version": "v1.2.17"
     },
     "laminas/laminas-code": {
         "version": "3.4.1"
@@ -415,6 +421,9 @@
         "version": "v2.2.0"
     },
     "symfony/stopwatch": {
+        "version": "v4.4.14"
+    },
+    "symfony/templating": {
         "version": "v4.4.14"
     },
     "symfony/test-pack": {
