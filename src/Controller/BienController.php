@@ -5,13 +5,14 @@ namespace App\Controller;
 use App\Entity\Bien;
 use App\Form\BienType;
 use App\Repository\BienRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/")
+ * @Route("/bien")
  */
 class BienController extends AbstractController
 {
@@ -27,10 +28,12 @@ class BienController extends AbstractController
 
     /**
      * @Route("/new", name="bien_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request): Response
     {
-        $bien = new Bien();
+
+        $bien = new Bien($this->getUser());
         $form = $this->createForm(BienType::class, $bien);
         $form->handleRequest($request);
 

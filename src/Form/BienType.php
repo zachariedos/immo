@@ -16,11 +16,8 @@ class BienType extends AbstractType
             ->add('prix')
             ->add('photo')
             ->add('categorie')
-            ->add('created_at')
-            ->add('updated_at')
             ->add('titre')
-            ->add('type')
-        ;
+            ->add('type');
     }
 
     public function configureOptions(OptionsResolver $resolver)
