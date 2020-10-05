@@ -31,7 +31,8 @@ security:
                 # following line to always enable it.
                 #always_remember_me: true
             access_denied_url: /
-            logout:       true
+            logout:
+                path:   /profil/logout
             anonymous:    true
 
             # activate different ways to authenticate
@@ -46,5 +47,5 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/, role: ROLE_SUPER_ADMIN }
+        - { path: ^/admin/, role: ROLE_ADMIN }
         # - { path: ^/admin/, role: IS_AUTHENTICATED_ANONYMOUSLY }
