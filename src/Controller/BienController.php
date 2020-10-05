@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/bien")
+ * @Route("/")
  */
 class BienController extends AbstractController
 {
@@ -83,7 +83,7 @@ class BienController extends AbstractController
      */
     public function delete(Request $request, Bien $bien): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$bien->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $bien->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($bien);
             $entityManager->flush();

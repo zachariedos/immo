@@ -31,8 +31,7 @@ security:
                 # following line to always enable it.
                 #always_remember_me: true
             access_denied_url: /
-            logout:
-                path:   /profil/logout
+            logout:     true
             anonymous:    true
 
             # activate different ways to authenticate
