@@ -23,7 +23,7 @@ class SearchController extends AbstractController
     {
         $form = $this->createFormBuilder(null)
             ->add('query', TypeTextType::class)
-            ->add('search', SubmitType::class, [
+            ->add('Rechercher', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-primary'
                 ]
