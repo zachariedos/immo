@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bien index{% endblock %}
+
+{% block body %}
+    <h1>Bien index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th>Prix</th>
+                <th>Photo</th>
+                <th>Categorie</th>
+                <th>Created_at</th>
+                <th>Updated_at</th>
+                <th>Titre</th>
+                <th>Type</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for bien in biens %}
+            <tr>
+                <td>{{ bien.id }}</td>
+                <td>{{ bien.description }}</td>
+                <td>{{ bien.prix }}</td>
+                <td>{{ bien.photo }}</td>
+                <td>{{ bien.categorie }}</td>
+                <td>{{ bien.createdAt ? bien.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ bien.updatedAt ? bien.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ bien.titre }}</td>
+                <td>{{ bien.type }}</td>
+                <td>
+                    <a href="{{ path('bien_show', {'id': bien.id}) }}">show</a>
+                    <a href="{{ path('bien_edit', {'id': bien.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('bien_new') }}">Create new</a>
+{% endblock %}
