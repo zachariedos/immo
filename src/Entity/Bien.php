@@ -57,6 +57,12 @@ class Bien
      */
     private $type;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="biens")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $proprietaire;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -154,6 +160,18 @@ class Bien
     public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getProprietaire(): ?User
+    {
+        return $this->proprietaire;
+    }
+
+    public function setProprietaire(?User $proprietaire): self
+    {
+        $this->proprietaire = $proprietaire;
 
         return $this;
     }
