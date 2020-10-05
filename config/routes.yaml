@@ -1,8 +1,15 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+index:
+    path: /bien
+    controller: App\Controller\BienController::indexzd
 fos_user_register:
     resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
     prefix: /profil/register
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+fos_user_security_login:
+    path:      /profil/login
+    defaults:  { _controller: FOSUserBundle:Security:login, _method: POST }
+
+fos_user_security_logout:
+    path:      /profil/logout
+    defaults:  { _controller: FOSUserBundle:Security:logout, _method: POST }
