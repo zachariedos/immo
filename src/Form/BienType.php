@@ -19,7 +19,14 @@ class BienType extends AbstractType
             ->add('prix')
             ->add('categorie')
             ->add('titre')
-            ->add('imageFile', VichImageType::class)
+            ->add('imageFile', VichImageType::class, [
+                'label' => 'Photo du bien',
+                'required' => false,
+                'allow_delete' => false,
+                'download_uri' => false,
+                'image_uri' => true,
+                'asset_helper' => true,
+            ])
             ->add('type');
     }
 

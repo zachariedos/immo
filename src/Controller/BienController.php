@@ -35,7 +35,6 @@ class BienController extends AbstractController
     {
         $bien = new Bien();
         $bien->setProprietaire($this->getUser());
-        dump($bien);
         $form = $this->createForm(BienType::class, $bien);
         $form->handleRequest($request);
 
