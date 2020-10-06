@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Bien
+{% block title %}Nouveau Bien
 {% endblock %}
 
 {% block body %}
-	<h1>Create new Bien</h1>
+	<h1>Ajouter un nouveau Bien</h1>
 
 	{{ include('bien/_form.html.twig') }}
 
-	<a href="{{ path('bien_index') }}">back to list</a>
+	<a href="{{ path('bien_index') }}">Revenir au biens</a>
 {% endblock %}

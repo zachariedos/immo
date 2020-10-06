@@ -4,11 +4,13 @@ namespace App\Entity;
 
 use App\Repository\BienRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Doctrine\ORM\Mapping\PrePersist;
 use Doctrine\ORM\Mapping\PreUpdate;
 
 /**
  * @ORM\Entity(repositoryClass=BienRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Bien
 {
@@ -126,7 +128,7 @@ class Bien
     /**
      * @ORM\PrePersist
      */
-    public function setCreatedAt(?\DateTimeInterface $created_at): self
+    public function setCreatedAt(): self
     {
         $this->created_at = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
 
@@ -141,7 +143,7 @@ class Bien
     /**
      * @ORM\PreUpdate
      */
-    public function setUpdatedAt(?\DateTimeInterface $updated_at): self
+    public function setUpdatedAt(): self
     {
         $this->updated_at = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
 

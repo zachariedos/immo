@@ -43,6 +43,11 @@ class User extends BaseUser
         $this->biens = new ArrayCollection();
     }
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
     public function getNom(): ?string
     {
         return $this->Nom;

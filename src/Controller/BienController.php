@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Bien;
+use App\Entity\User;
 use App\Form\BienType;
 use App\Repository\BienRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -32,8 +33,9 @@ class BienController extends AbstractController
      */
     public function new(Request $request): Response
     {
-
-        $bien = new Bien($this->getUser());
+        $bien = new Bien();
+        $bien->setProprietaire($this->getUser());
+        dump($bien);
         $form = $this->createForm(BienType::class, $bien);
         $form->handleRequest($request);
 
