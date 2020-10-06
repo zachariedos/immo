@@ -22,9 +22,11 @@
 			</tr>
 			<tr>
 				<th>Photo</th>
-				{% if bien.imageName %}
-					<img width="200px" src="{{ vich_uploader_asset(bien, bien.imageFile) }}">
-				{% endif %}
+				<td>
+					{% if bien.imageName %}
+						<img width="200px" src="{{ vich_uploader_asset(bien, bien.imageFile) }}">
+					{% endif %}
+				</td>
 			</tr>
 			<tr>
 				<th>Categorie</th>
