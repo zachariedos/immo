@@ -4,8 +4,11 @@ namespace App\Form;
 
 use App\Entity\Bien;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
+
 
 class BienType extends AbstractType
 {
@@ -14,9 +17,9 @@ class BienType extends AbstractType
         $builder
             ->add('description')
             ->add('prix')
-            ->add('photo')
             ->add('categorie')
             ->add('titre')
+            ->add('imageFile', VichImageType::class)
             ->add('type');
     }
 

@@ -6,6 +6,7 @@
 parameters:
     locale: 'eu'
     app_locales: 'fr|eu'
+    app.path.bien_images: /uploads/images/biens
 services:
     # default configuration for services in *this* file
     _defaults:
