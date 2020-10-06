@@ -1,56 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Bien index
+{% block title %}Bien index{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
 {% endblock %}
 
 {% block body %}
-	<h1>Bien index</h1>
+	<button class="btn btn-outline-dark">
+		<a href="{{ path('bien_new') }}">Ajouter un bien</a>
+	</button>
+	<h1 class="animatic">Voici nos biens:</h1>
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>Description</th>
-				<th>Prix</th>
-				<th>Photo</th>
-				<th>Categorie</th>
-				<th>Created_at</th>
-				<th>Updated_at</th>
-				<th>Titre</th>
-				<th>Type</th>
-				<th>actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for bien in biens %}
-				<tr>
-					<td>{{ bien.id }}</td>
-					<td>{{ bien.description }}</td>
-					<td>{{ bien.prix }}</td>
-					<td>
-						{% if bien.imageName %}
-							<img width="200px" src="{{ vich_uploader_asset(bien, bien.imageFile) }}">
-						{% endif %}
-					</td>
-					<td>{{ bien.categorie }}</td>
-					<td>{{ bien.createdAt ? bien.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-					<td>{{ bien.updatedAt ? bien.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-					<td>{{ bien.titre }}</td>
-					<td>{{ bien.type }}</td>
-					<td>
-						<a href="{{ path('bien_show', {'id': bien.id}) }}">show</a>
-						<a href="{{ path('bien_edit', {'id': bien.id}) }}">edit</a>
-					</td>
-				</tr>
-			{% else %}
-				<tr>
-					<td colspan="10">no records found</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+	{% for bien in biens %}
+		<div class="cards">
+	    	<article class="card">
+	       		<header>
+	            	<h2>{{ bien.titre }}</h2>
+	        	</header>
+	        	<div class="content">	
+	        		<p>            					
+						<p>
+							{% if bien.imageName %}
+								<img width="200px" src="{{ vich_uploader_asset(bien, bien.imageFile) }}">
+							{% endif %}
+						</p>											
+						<p><i class="fas fa-tag"></i> {{ bien.categorie }}</p>				
+						<p><i class="fas fa-home"></i> {{ bien.type }}</p>
+						<p class="price">{{ bien.prix }} <i class="fas fa-euro-sign"></i></p>
+						<p class="text-right">
+							<a href="{{ path('bien_edit', {'id': bien.id}) }}">edit</a><br>
+							<a href="{{ path('bien_show', {'id': bien.id}) }}">show</a>						
+						</p>														
+						{% else %}								
+							<p colspan="10">no records found</p>							
+						{% endfor %}
+					</p>			
+			</div>            
+		</article>   
+	</div>
 	<div class="navigation d-flex justify-content-center">
 		{{ knp_pagination_render(biens) }}
 	</div>
-	<a href="{{ path('bien_new') }}">Ajouter un Bien</a>
+	
 {% endblock %}
