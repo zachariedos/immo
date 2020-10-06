@@ -1,46 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Bien index{% endblock %}
+{% block title %}Bien index
+{% endblock %}
 
 {% block stylesheets %}
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
 {% endblock %}
 
 {% block body %}
-	<button class="btn btn-outline-dark">
-		<a href="{{ path('bien_new') }}">Ajouter un bien</a>
-	</button>
+	<a class="btn btn-outline-dark" href="{{ path('bien_new') }}">Ajouter un bien</a>
 	<h1 class="animatic">Voici nos biens:</h1>
 
 	{% for bien in biens %}
 		<div class="cards">
-	    	<article class="card">
-	       		<header>
-	            	<h2>{{ bien.titre }}</h2>
-	        	</header>
-	        	<div class="content">	
-	        		<p>            					
-						<p>
-							{% if bien.imageName %}
-								<img width="200px" src="{{ vich_uploader_asset(bien, bien.imageFile) }}">
-							{% endif %}
-						</p>											
-						<p><i class="fas fa-tag"></i> {{ bien.categorie }}</p>				
-						<p><i class="fas fa-home"></i> {{ bien.type }}</p>
-						<p class="price">{{ bien.prix }} <i class="fas fa-euro-sign"></i></p>
-						<p class="text-right">
-							<a href="{{ path('bien_edit', {'id': bien.id}) }}">edit</a><br>
-							<a href="{{ path('bien_show', {'id': bien.id}) }}">show</a>						
-						</p>														
-						{% else %}								
-							<p colspan="10">no records found</p>							
-						{% endfor %}
-					</p>			
-			</div>            
-		</article>   
-	</div>
-	<div class="navigation d-flex justify-content-center">
-		{{ knp_pagination_render(biens) }}
-	</div>
-	
-{% endblock %}
+			<article class="card">
+				<header>
+					<h2>{{ bien.titre }}</h2>
+				</header>
+				<div class="content">
+					<p></p>
+					<p>
+						{% if bien.imageName %}
+							<img width="200px" src="{{ vich_uploader_asset(bien, bien.imageFile) }}">
+						{% endif %}
+					</p>
+					<p>
+						<i class="fas fa-tag"></i>
+						{{ bien.categorie }}</p>
+					<p>
+						<i class="fas fa-home"></i>
+						{{ bien.type }}</p>
+					<p class="price">{{ bien.prix }}
+						<i class="fas fa-euro-sign"></i>
+					</p>
+					<p class="text-right">
+						<a href="{{ path('bien_edit', {'id': bien.id}) }}">edit</a><br>
+						<a href="{{ path('bien_show', {'id': bien.id}) }}">show</a>
+					</p>
+				{% else %}
+					<p colspan="10">no records found</p>
+				{% endfor %}
+			</p>
+		</div>
+	</article>
+</div>
+<div class="navigation d-flex justify-content-center">
+	{{ knp_pagination_render(biens) }}
+</div>{% endblock %}
