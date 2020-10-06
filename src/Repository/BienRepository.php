@@ -35,6 +35,12 @@ class BienRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findPaginateArticle()
+    {
+        return $this->createQueryBuilder('a')
+            ->orderBy('a.created_at', 'ASC')
+            ->getQuery();
+    }
 
     /*
     public function findOneBySomeField($value): ?Bien
