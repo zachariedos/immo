@@ -11,30 +11,39 @@
 	<h1 class="animatic mt-5 mb-5">Voici nos biens:</h1>
 	<div class="row justify-content-center">
 		{% for bien in biens %}
-			<div class="col-md-4 col-sm-12 mb-5">
-				<div class="card card-body p-0 h-75">
+			<div class="col-lg-4 col-sm-12 mb-5">
+				<div class="card card-body p-0 h-100" style="max-height:100vh;">
 					{% if bien.imageName %}
 						<!--Card image-->
-						<div class="view overlay h-75 w-100">
+						<div class="view overlay w-100" style="height:40vh;">
 							<img class="card-img-top h-100 w-100" style="overflow: hidden; object-fit: cover;" src="{{ vich_uploader_asset(bien, bien.imageFile) }}">
 						</div>
 					{% endif %}
 					<h2 class="p-2 bg-unique-color">{{ bien.titre }}</h2>
 					<div class="p-2">
+						<div class="row container-fluid justify-content-around">
+							<p>
+								<i class="fas fa-tag"></i>
+								{{ bien.categorie }}</p>
+							<p>
+								<i class="fas fa-home"></i>
+								{{ bien.type }}</p>
+							<p>
+								<i class="fas fa-user"></i>
+								{{ bien.proprietaire }}</p>
+
+							<p class="price">{{ bien.prix }}
+								<i class="fas fa-euro-sign"></i>
+							</p>
+						</div>
 						<p>
-							<i class="fas fa-tag"></i>
-							{{ bien.categorie }}</p>
-						<p>
-							<i class="fas fa-home"></i>
-							{{ bien.type }}</p>
-						<p class="price">{{ bien.prix }}
-							<i class="fas fa-euro-sign"></i>
+							{{ bien.description|length > 150 ? bien.description|slice(0, 150) ~ '...' : bien.description }}
 						</p>
 						<div class=" container-fluid justify-content-around d-inline-flex mx-auto">
-							<a class="btn btn-primary" href="{{ path('bien_show', {'id': bien.id}) }}">Voir</a>
+							<a class="btn btn-sm btn-primary" href="{{ path('bien_show', {'id': bien.id}) }}">Voir</a>
 							{% if app.user %}
 								{% if bien.proprietaire.id == app.user.id %}
-									<a class="btn btn-warning" href="{{ path('bien_edit', {'id': bien.id}) }}">Modifier</a>
+									<a class="btn btn-sm btn-warning" href="{{ path('bien_edit', {'id': bien.id}) }}">Modifier</a>
 									{{ include('bien/_delete_form.html.twig') }}
 								{% endif %}
 							{% endif %}

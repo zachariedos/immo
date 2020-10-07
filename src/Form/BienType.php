@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Bien;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,10 +16,14 @@ class BienType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('description')
-            ->add('prix')
-            ->add('categorie')
             ->add('titre')
+            ->add('description')
+            ->add('categorie', ChoiceType::class, [
+                'choices'  => [
+                    'Location' => 'location',
+                    'Vente' => 'vente',
+                ]
+            ])
             ->add('imageFile', VichImageType::class, [
                 'label' => 'Photo du bien',
                 'required' => false,
@@ -27,7 +32,14 @@ class BienType extends AbstractType
                 'image_uri' => true,
                 'asset_helper' => true,
             ])
-            ->add('type');
+            ->add('type', ChoiceType::class, [
+                'choices'  => [
+                    'Maison' => 'maison',
+                    'Appartement' => 'appartement',
+                    'Villa' => 'villa',
+                ]
+            ])
+            ->add('prix');
     }
 
     public function configureOptions(OptionsResolver $resolver)
