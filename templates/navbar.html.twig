@@ -1,17 +1,10 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand navbar-light bg-light">
 	<a class="navbar-brand" href="{{ path('bien_index', relative = false) }}">Symfo Immo</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	<button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	</button>
 
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
-		<ul class="navbar-nav mr-auto">
-			{% if is_granted('ROLE_ADMIN') %}
-				<li class="nav-item">
-					<a class="nav-link" href="{{ path('bien_index', relative = false) }}">Nos Biens</a>
-				</li>
-			{% endif %}
-		</ul>
 		<ul class="navbar-nav ml-auto">
 			{% if not app.user %}
 				<li class="nav-item">
@@ -21,23 +14,33 @@
 				</li>
 			{% endif %}
 			{% if app.user %}
+
 				<li class="nav-item dropdown">
-					<a class="nav-link  dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<i class="fa fa-user h4"></i>
-						{{ app.user.username }}</a>
+					<a class="nav-link  dropdown-toggle h4 " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="fa fa-home "></i>
+					</a>
+					<div class="dropdown-menu dropdown-menu-right " aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="{{ path('bien_mesbiens', relative = false) }}">Vos Biens</a>
+						<a class="dropdown-item" href="{{ path('bien_new') }}">Ajouter un bien</a>
+					</div>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link  dropdown-toggle  h4" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="fa fa-user"></i>
+						{{ app.user.username }}
+					</a>
 					<div class="dropdown-menu dropdown-menu-right " aria-labelledby="navbarDropdown">
 						<a class="dropdown-item" href="{{ path('fos_user_profile_show', relative = false) }}">Profil</a>
-						<a class="dropdown-item" href="{{ path('bien_mesbiens', relative = false) }}">Vos Biens</a>
 						<a class="dropdown-item" href="{{ path('fos_user_change_password', relative = false) }}">Changer de Mot De Passe</a>
 						<a class="dropdown-item" href="{{ path('fos_user_security_logout', relative = false) }}">Deconnexion</a>
 					</div>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link h4" href="{{ path('app_admin_dashboard_index', relative = false) }}">
-						<i class="fa fa-tools"></i>
-					</a>
-				</li>
 			</li>
-		{% endif %}
-	</ul>
-</div></nav>
+			<li class="nav-item">
+				<a class="nav-link h4" href="{{ path('app_admin_dashboard_index', relative = false) }}">
+					<i class="fa fa-tools"></i>
+				</a>
+			</li>
+		</li>
+	{% endif %}
+</ul></div></nav>

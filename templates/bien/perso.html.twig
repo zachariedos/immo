@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Vos Biens
+{% block title %}Bien index
 {% endblock %}
 
 {% block stylesheets %}
@@ -8,18 +8,18 @@
 {% endblock %}
 
 {% block body %}
-	{% if app.user %}
-		<a class="btn btn-outline-dark" href="{{ path('bien_new') }}">Ajouter un bien</a>
-	{% endif %}
-	<h1 class="animatic mt-5 mb-5">Voici vos biens:</h1>
+	<h1 class="animatic mt-5 mb-5">Vos biens:</h1>
 	<div class="row justify-content-center">
 		{% for bien in biens %}
 			<div class="col-md-4 col-sm-12 mb-5">
-				<div class="card card-body p-0">
-					<h2 class="p-2 bg-unique-color">{{ bien.titre }}</h2>
+				<div class="card card-body p-0 h-75">
 					{% if bien.imageName %}
-						<img width="200px" src="{{ vich_uploader_asset(bien, bien.imageFile) }}">
+						<!--Card image-->
+						<div class="view overlay h-75 w-100">
+							<img class="card-img-top h-100 w-100" style="overflow: hidden; object-fit: cover;" src="{{ vich_uploader_asset(bien, bien.imageFile) }}">
+						</div>
 					{% endif %}
+					<h2 class="p-2 bg-unique-color">{{ bien.titre }}</h2>
 					<div class="p-2">
 						<p>
 							<i class="fas fa-tag"></i>
@@ -43,7 +43,7 @@
 				</div>
 			</div>
 		{% else %}
-			<p colspan="10">Vous n'avez aucun biens</p>
+			<p colspan="10">Aucun biens trouvé</p>
 		{% endfor %}
 	</div>
 </div>
