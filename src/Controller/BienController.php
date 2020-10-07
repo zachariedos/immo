@@ -32,7 +32,7 @@ class BienController extends AbstractController
         $biens = $paginator->paginate(
             $query,
             $requestedPage,
-            1
+            3
         );
         return $this->render('bien/index.html.twig', [
             'biens' => $biens,

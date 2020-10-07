@@ -10,40 +10,36 @@
 {% block body %}
 	<a class="btn btn-outline-dark" href="{{ path('bien_new') }}">Ajouter un bien</a>
 	<h1 class="animatic">Voici nos biens:</h1>
+	<div class="row">
+		{% for bien in biens %}
+			<div class="col-md-4 col-sm-12 mb-5">
+				<div class="card card-body p-0">
+					<h2 class="p-2 bg-unique-color">{{ bien.titre }}</h2>
+					{% if bien.imageName %}
+						<img width="200px" src="{{ vich_uploader_asset(bien, bien.imageFile) }}">
+					{% endif %}
+					<div class="p-2">
+						<p>
+							<i class="fas fa-tag"></i>
+							{{ bien.categorie }}</p>
+						<p>
+							<i class="fas fa-home"></i>
+							{{ bien.type }}</p>
+						<p class="price">{{ bien.prix }}
+							<i class="fas fa-euro-sign"></i>
+						</p>
 
-	{% for bien in biens %}
-		<div class="cards">
-			<article class="card">
-				<header>
-					<h2>{{ bien.titre }}</h2>
-				</header>
-				<div class="content">
-					<p></p>
-					<p>
-						{% if bien.imageName %}
-							<img width="200px" src="{{ vich_uploader_asset(bien, bien.imageFile) }}">
-						{% endif %}
-					</p>
-					<p>
-						<i class="fas fa-tag"></i>
-						{{ bien.categorie }}</p>
-					<p>
-						<i class="fas fa-home"></i>
-						{{ bien.type }}</p>
-					<p class="price">{{ bien.prix }}
-						<i class="fas fa-euro-sign"></i>
-					</p>
-					<p class="text-right">
-						<a href="{{ path('bien_edit', {'id': bien.id}) }}">edit</a><br>
-						<a href="{{ path('bien_show', {'id': bien.id}) }}">show</a>
-					</p>
-				{% else %}
-					<p colspan="10">no records found</p>
-				{% endfor %}
-			</p>
-		</div>
-	</article>
+						<div class=" container-fluid justify-content-around d-inline-flex mx-auto">
+							<a class="text-secondary" href="{{ path('bien_edit', {'id': bien.id}) }}">edit</a><br>
+							<a href="{{ path('bien_show', {'id': bien.id}) }}">show</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% else %}
+			<p colspan="10">no records found</p>
+		{% endfor %}
+	</div>
 </div>
 <div class="navigation d-flex justify-content-center">
-	{{ knp_pagination_render(biens) }}
-</div>{% endblock %}
+	{{ knp_pagination_render(biens) }}</div>{% endblock %}
