@@ -35,7 +35,16 @@ class BienRepository extends ServiceEntityRepository
         ;
     }
     */
-    public function findPaginateArticle()
+    public function findPaginateBiensPerso($userid)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.proprietaire = :userid')
+            ->setParameter('userid', $userid)
+            ->orderBy('a.created_at', 'ASC')
+            ->getQuery();
+    }
+
+    public function findPaginateBiens()
     {
         return $this->createQueryBuilder('a')
             ->orderBy('a.created_at', 'ASC')

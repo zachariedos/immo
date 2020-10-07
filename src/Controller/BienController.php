@@ -26,7 +26,7 @@ class BienController extends AbstractController
     public function index(BienRepository $bienRepository, PaginatorInterface $paginator, Request $request): Response
     {
 
-        $query = $bienRepository->findPaginateArticle();
+        $query = $bienRepository->findPaginateBiens();
         $requestedPage = $request->query->getInt('page', 1);
 
         $biens = $paginator->paginate(
@@ -40,8 +40,28 @@ class BienController extends AbstractController
     }
 
     /**
+     * @Route("/mes_biens", name="bien_mesbiens", methods={"GET"})
+     * @IsGranted("ROLE_USER")
+     */
+    public function perso(BienRepository $bienRepository, PaginatorInterface $paginator, Request $request): Response
+    {
+
+        $query = $bienRepository->findPaginateBiensPerso($this->getUser()->getId());
+        $requestedPage = $request->query->getInt('page', 1);
+
+        $biens = $paginator->paginate(
+            $query,
+            $requestedPage,
+            3
+        );
+        return $this->render('bien/perso.html.twig', [
+            'biens' => $biens,
+        ]);
+    }
+
+    /**
      * @Route("/new", name="bien_new", methods={"GET","POST"})
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_USER")
      */
     public function new(Request $request): Response
     {
@@ -69,6 +89,8 @@ class BienController extends AbstractController
      */
     public function show(Bien $bien): Response
     {
+
+
         return $this->render('bien/show.html.twig', [
             'bien' => $bien,
         ]);
@@ -76,35 +98,43 @@ class BienController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="bien_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function edit(Request $request, Bien $bien): Response
     {
-        $form = $this->createForm(BienType::class, $bien);
-        $form->handleRequest($request);
+        if ($bien->getProprietaire()->getId() === $this->getUser()->getId()) {
+            $form = $this->createForm(BienType::class, $bien);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $this->getDoctrine()->getManager()->flush();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+                return $this->redirectToRoute('bien_index');
+            }
 
+            return $this->render('bien/edit.html.twig', [
+                'bien' => $bien,
+                'form' => $form->createView(),
+            ]);
+        } else {
             return $this->redirectToRoute('bien_index');
         }
-
-        return $this->render('bien/edit.html.twig', [
-            'bien' => $bien,
-            'form' => $form->createView(),
-        ]);
     }
 
     /**
      * @Route("/{id}", name="bien_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_USER")
      */
     public function delete(Request $request, Bien $bien): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $bien->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($bien);
-            $entityManager->flush();
+        if ($bien->getProprietaire()->getId() === $this->getUser()->getId()) {
+            if ($this->isCsrfTokenValid('delete' . $bien->getId(), $request->request->get('_token'))) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->remove($bien);
+                $entityManager->flush();
+                return $this->redirectToRoute('bien_index');
+            }
+        } else {
+            return $this->redirectToRoute('bien_index');
         }
-
-        return $this->redirectToRoute('bien_index');
     }
 }

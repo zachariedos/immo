@@ -7,8 +7,9 @@
 	<h1>Edit Bien</h1>
 
 	{{ include('bien/_form.html.twig', {'button_label': 'Modifier'}) }}
+	<div class="row">
+		<a class="btn btn-primary my-2" href="{{ path('bien_index') }}">Revenir aux Biens</a>
 
-	<a class="btn btn-primary my-2" href="{{ path('bien_index') }}">Revenir aux Biens</a>
-
-	{{ include('bien/_delete_form.html.twig') }}
+		{{ include('bien/_delete_form.html.twig') }}
+	</div>
 {% endblock %}

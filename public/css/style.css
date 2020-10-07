@@ -3,6 +3,7 @@ h1{
 }
 body{
   overflow: hidden;
+  overflow-y: scroll;
 }
 .animatic {
   animation-duration: 3s;
