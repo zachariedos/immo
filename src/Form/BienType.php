@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Bien;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -17,7 +18,7 @@ class BienType extends AbstractType
     {
         $builder
             ->add('titre')
-            ->add('description')
+            ->add('description', CKEditorType::class)
             ->add('categorie', ChoiceType::class, [
                 'choices'  => [
                     'Location' => 'location',
