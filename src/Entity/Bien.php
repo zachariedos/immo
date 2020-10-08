@@ -85,6 +85,11 @@ class Bien
      */
     private $imageName;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Adresse;
+
 
     public function getId(): ?int
     {
@@ -227,13 +232,26 @@ class Bien
         return $this->imageFile;
     }
 
-    public function setImageName(?string $imageName): void
+    public function setImageName(?string $imageName): self
     {
         $this->imageName = $imageName;
+        return $this;
     }
 
     public function getImageName(): ?string
     {
         return $this->imageName;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->Adresse;
+    }
+
+    public function setAdresse(?string $Adresse): self
+    {
+        $this->Adresse = $Adresse;
+
+        return $this;
     }
 }

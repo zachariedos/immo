@@ -13,12 +13,20 @@
 					<td>{{ bien.id }}</td>
 				</tr>
 				<tr>
+					<th>Titre</th>
+					<td>{{ bien.titre }}</td>
+				</tr>
+				<tr>
 					<th>Description</th>
 					<td>{{ bien.description|raw }}</td>
 				</tr>
 				<tr>
-					<th>Prix</th>
-					<td>{{ bien.prix }}</td>
+					<th>Type</th>
+					<td>{{ bien.type }}</td>
+				</tr>
+				<tr>
+					<th>Categorie</th>
+					<td>{{ bien.categorie }}</td>
 				</tr>
 				<tr>
 					<th>Photo</th>
@@ -29,10 +37,6 @@
 					</td>
 				</tr>
 				<tr>
-					<th>Categorie</th>
-					<td>{{ bien.categorie }}</td>
-				</tr>
-				<tr>
 					<th>Created_at</th>
 					<td>{{ bien.createdAt ? bien.createdAt|date('Y-m-d H:i:s') : '' }}</td>
 				</tr>
@@ -41,12 +45,12 @@
 					<td>{{ bien.updatedAt ? bien.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
 				</tr>
 				<tr>
-					<th>Titre</th>
-					<td>{{ bien.titre }}</td>
+					<th>Adresse</th>
+					<td>{{ bien.adresse }}</td>
 				</tr>
 				<tr>
-					<th>Type</th>
-					<td>{{ bien.type }}</td>
+					<th>Prix</th>
+					<td>{{ bien.prix }}</td>
 				</tr>
 			</tbody>
 		</table>

@@ -40,6 +40,7 @@ class BienType extends AbstractType
                     'Villa' => 'villa',
                 ]
             ])
+            ->add('adresse')
             ->add('prix');
     }
 

@@ -108,7 +108,7 @@ class BienController extends AbstractController
      */
     public function edit(Request $request, Bien $bien): Response
     {
-        if ($bien->getProprietaire()->getId() === $this->getUser()->getId()) {
+        if ($bien->getProprietaire()->getId() === $this->getUser()->getId() or $this->getUser()->hasRole('ROLE_ADMIN')) {
             $form = $this->createForm(BienType::class, $bien);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
@@ -132,7 +132,7 @@ class BienController extends AbstractController
      */
     public function delete(Request $request, Bien $bien): Response
     {
-        if ($bien->getProprietaire()->getId() === $this->getUser()->getId()) {
+        if ($bien->getProprietaire()->getId() === $this->getUser()->getId() or $this->getUser()->hasRole('ROLE_ADMIN')) {
             if ($this->isCsrfTokenValid('delete' . $bien->getId(), $request->request->get('_token'))) {
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->remove($bien);

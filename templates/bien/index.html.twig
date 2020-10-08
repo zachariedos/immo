@@ -11,16 +11,16 @@
 	{% form_theme form 'bootstrap_4_layout.html.twig' %}
 	{{ form_start(form) }}
 	<div class="row justify-content-center">
-		<div class="col-2">{{ form_row(form.SearchPrixMin, {'label': "Prix Minimum",'type':'number', 'attr': {'placeholder': 'Prix Minimum'}}) }}</div>
-		<div class="col-2">{{ form_row(form.SearchPrixMax, {'label': "Prix Maximum",'type':'number', 'attr': {'placeholder': 'Prix Maximum'}}) }}</div>
+		<div class="col-6 col-xl-2">{{ form_row(form.SearchPrixMin, {'label': "Prix Minimum",'type':'number', 'attr': {'placeholder': 'Prix Minimum'}}) }}</div>
+		<div class="col-6 col-xl-2">{{ form_row(form.SearchPrixMax, {'label': "Prix Maximum",'type':'number', 'attr': {'placeholder': 'Prix Maximum'}}) }}</div>
 	</div>
 	<div class="row justify-content-center">
-		<div class="col-2">{{ form_row(form.SearchCategorie, {'label': "Categorie", }) }}</div>
-		<div class="col-2">{{ form_row(form.SearchType, {'label': "Type",}) }}</div>
+		<div class="col-6 col-xl-2">{{ form_row(form.SearchCategorie, {'label': "Categorie", }) }}</div>
+		<div class="col-6 col-xl-2">{{ form_row(form.SearchType, {'label': "Type",}) }}</div>
 	</div>
 	<div class="row justify-content-center">
-		<div class="col-3">{{ form_row(form.SearchGlobal, {'label': "Recherche",}) }}</div>
-		<button class="btn btn-primary col-1">Rechercher</button>
+		<div class="col-6 col-xl-4">{{ form_row(form.SearchGlobal, {'label': "Recherche",}) }}</div>
+		<button class="btn btn-primary col-3 col-xl-1">Rechercher</button>
 	</div>
 </div>
 {{ form_end(form) }}<h1 class="animatic mt-5 mb-5">Voici nos biens:</h1>
@@ -47,7 +47,9 @@
 							<p>
 								<i class="fas fa-user"></i>
 								{{ bien.proprietaire }}</p>
-
+							<p>
+								<i class="fas fa-search-location"></i>
+								{{ bien.adresse }}</p>
 							<p class="price">{{ bien.prix }}
 								<i class="fas fa-euro-sign"></i>
 							</p>
@@ -58,7 +60,7 @@
 						<div class=" container-fluid justify-content-around d-inline-flex mx-auto">
 							<a class="btn btn-sm btn-primary" href="{{ path('bien_show', {'id': bien.id}) }}">Voir</a>
 							{% if app.user %}
-								{% if bien.proprietaire.id == app.user.id %}
+								{% if bien.proprietaire.id == app.user.id or is_granted('ROLE_ADMIN') %}
 									<a class="btn btn-sm btn-warning" href="{{ path('bien_edit', {'id': bien.id}) }}">Modifier</a>
 									{{ include('bien/_delete_form.html.twig') }}
 								{% endif %}
