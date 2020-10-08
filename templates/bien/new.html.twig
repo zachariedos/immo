@@ -4,9 +4,11 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Ajouter un nouveau Bien</h1>
+	<div class="container">
+		<h1>Ajouter un nouveau Bien</h1>
 
-	{{ include('bien/_form.html.twig') }}
+		{{ include('bien/_form.html.twig') }}
 
-	<a class="btn btn-primary my-2" href="{{ path('bien_index') }}">Revenir aux Biens</a>
+		<a class="btn btn-primary my-2" href="{{ path('bien_index') }}">Revenir aux Biens</a>
+	</div>
 {% endblock %}

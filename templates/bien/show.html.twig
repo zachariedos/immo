@@ -4,59 +4,60 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Bien</h1>
-
-	<table class="table">
-		<tbody>
-			<tr>
-				<th>Id</th>
-				<td>{{ bien.id }}</td>
-			</tr>
-			<tr>
-				<th>Description</th>
-				<td>{{ bien.description|raw }}</td>
-			</tr>
-			<tr>
-				<th>Prix</th>
-				<td>{{ bien.prix }}</td>
-			</tr>
-			<tr>
-				<th>Photo</th>
-				<td>
-					{% if bien.imageName %}
-						<img width="200px" src="{{ vich_uploader_asset(bien, bien.imageFile) }}">
-					{% endif %}
-				</td>
-			</tr>
-			<tr>
-				<th>Categorie</th>
-				<td>{{ bien.categorie }}</td>
-			</tr>
-			<tr>
-				<th>Created_at</th>
-				<td>{{ bien.createdAt ? bien.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-			</tr>
-			<tr>
-				<th>Updated_at</th>
-				<td>{{ bien.updatedAt ? bien.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-			</tr>
-			<tr>
-				<th>Titre</th>
-				<td>{{ bien.titre }}</td>
-			</tr>
-			<tr>
-				<th>Type</th>
-				<td>{{ bien.type }}</td>
-			</tr>
-		</tbody>
-	</table>
-	<div class="row">
-		<a class="btn btn-primary" href="{{ path('bien_index') }}">Revenir aux Biens</a>
-		{% if app.user %}
-			{% if bien.proprietaire.id == app.user.id %}
-				<a class="btn btn-warning" href="{{ path('bien_edit', {'id': bien.id}) }}">Modifier</a>
-				{{ include('bien/_delete_form.html.twig') }}
+	<div class="container">
+		<h1>Bien</h1>
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>Id</th>
+					<td>{{ bien.id }}</td>
+				</tr>
+				<tr>
+					<th>Description</th>
+					<td>{{ bien.description|raw }}</td>
+				</tr>
+				<tr>
+					<th>Prix</th>
+					<td>{{ bien.prix }}</td>
+				</tr>
+				<tr>
+					<th>Photo</th>
+					<td>
+						{% if bien.imageName %}
+							<img width="200px" src="{{ vich_uploader_asset(bien, bien.imageFile) }}">
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<th>Categorie</th>
+					<td>{{ bien.categorie }}</td>
+				</tr>
+				<tr>
+					<th>Created_at</th>
+					<td>{{ bien.createdAt ? bien.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+				</tr>
+				<tr>
+					<th>Updated_at</th>
+					<td>{{ bien.updatedAt ? bien.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+				</tr>
+				<tr>
+					<th>Titre</th>
+					<td>{{ bien.titre }}</td>
+				</tr>
+				<tr>
+					<th>Type</th>
+					<td>{{ bien.type }}</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="row">
+			<a class="btn btn-primary" href="{{ path('bien_index') }}">Revenir aux Biens</a>
+			{% if app.user %}
+				{% if bien.proprietaire.id == app.user.id %}
+					<a class="btn btn-warning" href="{{ path('bien_edit', {'id': bien.id}) }}">Modifier</a>
+					{{ include('bien/_delete_form.html.twig') }}
+				{% endif %}
 			{% endif %}
-		{% endif %}
+		</div>
 	</div>
 {% endblock %}
