@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Bien;
+use App\Entity\Search;
+use App\Form\SearchType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -35,6 +37,41 @@ class BienRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function FindBySearch(Search $search)
+    {
+        $query = $this->createQueryBuilder('a')
+            ->innerJoin('a.proprietaire', 'u')
+            ->addSelect('u')
+            ->orderBy('a.created_at', 'DESC');
+
+        if ($search->getSearchPrixMin()) {
+            $query = $query->andWhere('a.prix >= :searchbienprixmin')
+                ->setParameter('searchbienprixmin', $search->getSearchPrixMin());
+        }
+
+        if ($search->getSearchPrixMax()) {
+            $query = $query->andWhere('a.prix <= :searchbienprixmax')
+                ->setParameter('searchbienprixmax', $search->getSearchPrixMax());
+        }
+
+        if ($search->getSearchCategorie()) {
+            $query = $query->andWhere('a.categorie = :searchbienCategorie')
+                ->setParameter('searchbienCategorie', $search->getSearchCategorie());
+        }
+
+        if ($search->getSearchType()) {
+            $query = $query->andWhere('a.type = :searchbienType')
+                ->setParameter('searchbienType', $search->getSearchType());
+        }
+        if ($search->getSearchGlobal()) {
+            $query = $query->andWhere('a.titre LIKE :searchsearchglobal')
+                ->orWhere('a.description LIKE :searchsearchglobal')
+                ->setParameter('searchsearchglobal', '%' . addcslashes($search->getSearchGlobal(), '%_') . '%');
+        }
+
+        return $query->getQuery();
+    }
+
     public function findPaginateBiensPerso($userid)
     {
         return $this->createQueryBuilder('a')

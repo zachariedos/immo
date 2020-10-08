@@ -8,7 +8,23 @@
 {% endblock %}
 
 {% block body %}
-	<h1 class="animatic mt-5 mb-5">Voici nos biens:</h1>
+	{% form_theme form 'bootstrap_4_layout.html.twig' %}
+	{{ form_start(form) }}
+	<div class="row justify-content-center">
+		<div class="col-2">{{ form_row(form.SearchPrixMin, {'label': "Prix Minimum",'type':'number', 'attr': {'placeholder': 'Prix Minimum'}}) }}</div>
+		<div class="col-2">{{ form_row(form.SearchPrixMax, {'label': "Prix Maximum",'type':'number', 'attr': {'placeholder': 'Prix Maximum'}}) }}</div>
+	</div>
+	<div class="row justify-content-center">
+		<div class="col-2">{{ form_row(form.SearchCategorie, {'label': "Categorie", }) }}</div>
+		<div class="col-2">{{ form_row(form.SearchType, {'label': "Type",}) }}</div>
+	</div>
+	<div class="row justify-content-center">
+		<div class="col-3">{{ form_row(form.SearchGlobal, {'label': "Recherche",}) }}</div>
+		<button class="btn btn-primary col-1">Rechercher</button>
+	</div>
+</div>
+{{ form_end(form) }}<h1 class="animatic mt-5 mb-5">Voici nos biens:</h1>
+<div class="container-fluid">
 	<div class="row justify-content-center">
 		{% for bien in biens %}
 			<div class="col-lg-4 col-sm-12 mb-5">
@@ -37,7 +53,7 @@
 							</p>
 						</div>
 						<p>
-							{{ bien.description|length > 150 ? bien.description|slice(0, 150) ~ '...' : bien.description }}
+							{{ bien.description|raw|length > 150 ? bien.description|raw|slice(0, 150) ~ '...' : bien.description|raw }}
 						</p>
 						<div class=" container-fluid justify-content-around d-inline-flex mx-auto">
 							<a class="btn btn-sm btn-primary" href="{{ path('bien_show', {'id': bien.id}) }}">Voir</a>
@@ -55,6 +71,4 @@
 			<p colspan="10">Aucun biens trouvé</p>
 		{% endfor %}
 	</div>
-</div>
-<div class="navigation d-flex justify-content-center">
-	{{ knp_pagination_render(biens) }}</div>{% endblock %}
+</div></div><div class="navigation d-flex justify-content-center">{{ knp_pagination_render(biens) }}</div>{% endblock %}

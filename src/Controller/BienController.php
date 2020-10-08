@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Bien;
+use App\Entity\Search;
 use App\Entity\User;
 use App\Form\BienType;
+use App\Form\SearchType;
 use App\Repository\BienRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,28 +16,32 @@ use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-
 /**
  * @Route("/bien")
  */
 class BienController extends AbstractController
 {
     /**
-     * @Route("/", name="bien_index", methods={"GET"})
+     * @Route("/", name="bien_index", methods={"GET","POST"})
      */
-    public function index(BienRepository $bienRepository, PaginatorInterface $paginator, Request $request): Response
+    public function index(PaginatorInterface $paginator, Request $request): Response
     {
+        $search = new Search();
+        $form = $this->createForm(SearchType::class, $search);
+        $form->handleRequest($request);
 
-        $query = $bienRepository->findPaginateBiens();
+        $query = $this->getDoctrine()->getRepository(Bien::class)->FindBySearch($search);
         $requestedPage = $request->query->getInt('page', 1);
-
-        $biens = $paginator->paginate(
-            $query,
-            $requestedPage,
-            3
+        // Récupération des articles
+        $Biens = $paginator->paginate(
+            $query,             // Requête créée précedemment
+            $requestedPage,     // Numéro de la page demandée
+            3              // Nombre d'articles affichés par page
         );
+
         return $this->render('bien/index.html.twig', [
-            'biens' => $biens,
+            'biens' => $Biens,
+            'form' => $form->createView(),
         ]);
     }
 

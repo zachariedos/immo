@@ -10,3 +10,5 @@ $("#bien_imageFile_file").change(function (e) {
     $(this).parents('.vich-image').append('<img class="preview_image" src="' + url + '" />');
     $('.vich-image img').css("width", '50%');
 })
+
+
